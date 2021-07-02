@@ -1,0 +1,3 @@
+rootProject.name = "NDNavDrawer"
+include ':app'
+include ':navdrawer'

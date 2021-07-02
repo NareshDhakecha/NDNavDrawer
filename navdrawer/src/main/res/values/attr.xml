@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NDDrawerLayout">
+        <attr name="ndl_customBehavior" format="boolean" />
+        <attr name="ndl_viewScale" format="float" />
+        <attr name="ndl_viewScrimColor" format="color" />
+        <attr name="ndl_viewElevation" format="dimension" />
+        <attr name="ndl_drawerElevation" format="dimension" />
+        <attr name="ndl_cardBackgroundColor" format="reference|color" />
+    </declare-styleable>
+</resources>
