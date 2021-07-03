@@ -7,5 +7,6 @@
         <attr name="ndl_viewElevation" format="dimension" />
         <attr name="ndl_drawerElevation" format="dimension" />
         <attr name="ndl_cardBackgroundColor" format="reference|color" />
+        <attr name="ndl_statusBarColor" format="reference|color" />
     </declare-styleable>
 </resources>

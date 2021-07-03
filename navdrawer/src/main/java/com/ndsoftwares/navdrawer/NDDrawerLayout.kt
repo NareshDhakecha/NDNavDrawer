@@ -48,13 +48,13 @@ open class NDDrawerLayout  : DrawerLayout {
     private fun init(context: Context, attrs: AttributeSet?, defStyle: Int) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.NDDrawerLayout)
         cardBackgroundColor = a.getColor(R.styleable.NDDrawerLayout_ndl_cardBackgroundColor, 0)
-
+        statusBarColor = a.getColor(R.styleable.NDDrawerLayout_ndl_statusBarColor, 0)
         a.recycle()
         defaultDrawerElevation = drawerElevation
         defaultFitsSystemWindows = fitsSystemWindows
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) if (!isInEditMode) {
-            statusBarColor = activity!!.window.statusBarColor
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) if (!isInEditMode) {
+//            statusBarColor = activity!!.window.statusBarColor
+//        }
         addDrawerListener(object : DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 this@NDDrawerLayout.drawerView = drawerView
