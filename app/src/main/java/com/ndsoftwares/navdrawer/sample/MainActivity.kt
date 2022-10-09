@@ -1,5 +1,6 @@
 package com.ndsoftwares.navdrawer.sample
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
@@ -41,12 +42,12 @@ class MainActivity : AppCompatActivity() {
 
 //        drawer.setViewScale(GravityCompat.START, 0.9f); //set height scale for main view (0f to 1f)
 //        drawer.setViewElevation(GravityCompat.START, 20); //set main view elevation when drawer open (dimension)
-//        drawer.setViewScrimColor(GravityCompat.START, Color.TRANSPARENT); //set drawer overlay coloe (color)
+//        drawer.setViewScrimColor(GravityCompat.START, Color.TRANSPARENT); //set drawer overlay color (color)
 //        drawer.setDrawerElevation(GravityCompat.START, 20); //set drawer elevation (dimension)
 //        drawer.setContrastThreshold(3); //set maximum of contrast ratio between white text and background color.
 //        drawer.setRadius(GravityCompat.START, 25); //set end container's corner radius (dimension)
 
-        drawerLayout.setViewScale(Gravity.START, 0.9f)
+        drawerLayout.setViewScale(Gravity.START, 0.8f)
         drawerLayout.setViewElevation(Gravity.START, 20f)
         drawerLayout.setRadius(Gravity.START, 35f)
         drawerLayout.setViewRotation(Gravity.START, 15f)

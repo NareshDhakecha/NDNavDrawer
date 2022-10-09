@@ -231,6 +231,7 @@ open class NDDrawerLayout  : DrawerLayout {
                 super.setDrawerElevation(setting.drawerElevation)
                 val percentage = 1f - setting.percentage
                 ViewCompat.setScaleY(child, 1f - percentage * slideOffset)
+//                ViewCompat.setScaleX(child, 1f - percentage * slideOffset)
                 child.cardElevation = setting.elevation * slideOffset
                 adjust = setting.elevation
                 var isLeftDrawer: Boolean = if (isRtl) childAbsGravity != absHorizGravity else childAbsGravity == absHorizGravity
