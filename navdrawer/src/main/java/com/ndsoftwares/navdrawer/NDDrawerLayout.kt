@@ -16,16 +16,19 @@ import androidx.cardview.widget.CardView
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.MaterialShapeDrawable
 import kotlin.math.round
+
 
 open class NDDrawerLayout  : DrawerLayout {
 
     var settings = HashMap<Int, Setting?>()
     private var defaultScrimColor = -0x67000000
     private var defaultDrawerElevation = 0f
+    private var navBarColor = 0
     private var frameLayout: FrameLayout? = null
     var drawerView: View? = null
     private var statusBarColor = 0
@@ -49,6 +52,7 @@ open class NDDrawerLayout  : DrawerLayout {
         val a = context.obtainStyledAttributes(attrs, R.styleable.NDDrawerLayout)
         cardBackgroundColor = a.getColor(R.styleable.NDDrawerLayout_ndl_cardBackgroundColor, 0)
         statusBarColor = a.getColor(R.styleable.NDDrawerLayout_ndl_statusBarColor, 0)
+        navBarColor = a.getColor(R.styleable.NDDrawerLayout_ndl_navBarColor, 0)
         a.recycle()
         defaultDrawerElevation = drawerElevation
         defaultFitsSystemWindows = fitsSystemWindows
@@ -206,35 +210,54 @@ open class NDDrawerLayout  : DrawerLayout {
             val setting = settings[childAbsGravity]
             var adjust: Float
             if (setting != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && setting.percentage < 1.0) {
+                if (setting.percentage < 1.0) {
                     if (drawerView.background is ColorDrawable) {
                         val color = ColorUtils.setAlphaComponent(statusBarColor, (255 - 255 * slideOffset).toInt())
                         window.statusBarColor = color
                         val bgColor = (drawerView.background as ColorDrawable).color
                         window.decorView.setBackgroundColor(bgColor)
+//                        val color2 = ColorUtils.setAlphaComponent(navBarColor, (255 - 255 * slideOffset).toInt())
+//                        window.navigationBarColor = color2
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                            systemUiVisibility = if (ColorUtils.calculateContrast(Color.WHITE, bgColor) < contrastThreshold && slideOffset > 0.4) View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else 0
+//                        }
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            systemUiVisibility = if (ColorUtils.calculateContrast(Color.WHITE, bgColor) < contrastThreshold && slideOffset > 0.4) View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else 0
+                            val wic = WindowInsetsControllerCompat(window, window.decorView)
+                            wic.isAppearanceLightStatusBars =
+                                ColorUtils.calculateContrast(Color.WHITE, bgColor) < contrastThreshold && slideOffset > 0.4 // true or false as desired.
                         }
                     } else if (drawerView.background is MaterialShapeDrawable
                         && (drawerView.background as MaterialShapeDrawable).fillColor != null) {
                         val color = ColorUtils.setAlphaComponent(statusBarColor, (255 - 255 * slideOffset).toInt())
+//                        val color = ColorUtils.setAlphaComponent(statusBarColor,1)
                         window.statusBarColor = color
+//                        val color2 = ColorUtils.setAlphaComponent(navBarColor, (255 - 255 * slideOffset).toInt())
+//                        window.navigationBarColor = color2
                         val bgColor = (drawerView.background as MaterialShapeDrawable).fillColor!!.defaultColor
                         window.decorView.setBackgroundColor(bgColor)
+//                        window.decorView.setBackgroundColor(color)
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                            systemUiVisibility = if (ColorUtils.calculateContrast(Color.WHITE, bgColor) < contrastThreshold && slideOffset > 0.4) View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else 0
+//                        }
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            systemUiVisibility = if (ColorUtils.calculateContrast(Color.WHITE, bgColor) < contrastThreshold && slideOffset > 0.4) View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else 0
+                            val wic = WindowInsetsControllerCompat(window, window.decorView)
+                            wic.isAppearanceLightStatusBars =
+                                ColorUtils.calculateContrast(Color.WHITE, bgColor) < contrastThreshold && slideOffset > 0.4 // true or false as desired.
                         }
                     }
+                }else {
+                    window.statusBarColor = statusBarColor
                 }
                 child.radius = (round((setting.radius * slideOffset) * 2.0) / 2).toFloat()
                 super.setScrimColor(setting.scrimColor)
                 super.setDrawerElevation(setting.drawerElevation)
                 val percentage = 1f - setting.percentage
-                ViewCompat.setScaleY(child, 1f - percentage * slideOffset)
+//                ViewCompat.setScaleY(child, 1f - percentage * slideOffset)
+                child.scaleY = 1f - percentage * slideOffset
 //                ViewCompat.setScaleX(child, 1f - percentage * slideOffset)
                 child.cardElevation = setting.elevation * slideOffset
                 adjust = setting.elevation
-                var isLeftDrawer: Boolean = if (isRtl) childAbsGravity != absHorizGravity else childAbsGravity == absHorizGravity
+                val isLeftDrawer: Boolean = if (isRtl) childAbsGravity != absHorizGravity else childAbsGravity == absHorizGravity
                 val width = if (isLeftDrawer) drawerView.width + adjust else -drawerView.width - adjust
                 updateSlideOffset(child, setting, width, slideOffset, isLeftDrawer)
             } else {

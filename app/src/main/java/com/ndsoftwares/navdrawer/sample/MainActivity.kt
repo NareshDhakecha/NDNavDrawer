@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         // ***** All Customize *******
 
-//        drawer.setViewScale(GravityCompat.START, 0.9f); //set height scale for main view (0f to 1f)
-//        drawer.setViewElevation(GravityCompat.START, 20); //set main view elevation when drawer open (dimension)
-//        drawer.setViewScrimColor(GravityCompat.START, Color.TRANSPARENT); //set drawer overlay color (color)
-//        drawer.setDrawerElevation(GravityCompat.START, 20); //set drawer elevation (dimension)
-//        drawer.setContrastThreshold(3); //set maximum of contrast ratio between white text and background color.
-//        drawer.setRadius(GravityCompat.START, 25); //set end container's corner radius (dimension)
+//        drawerLayout.setViewScale(GravityCompat.START, 0.9f); //set height scale for main view (0f to 1f)
+//        drawerLayout.setViewElevation(GravityCompat.START, 20); //set main view elevation when drawer open (dimension)
+        drawerLayout.setViewScrimColor(Gravity.START, Color.TRANSPARENT); //set drawer overlay color (color)
+//        drawerLayout.setDrawerElevation(Gravity.START, 20); //set drawer elevation (dimension)
+//        drawerLayout.setContrastThreshold(3); //set maximum of contrast ratio between white text and background color.
+//        drawerLayout.setRadius(GravityCompat.START, 25); //set end container's corner radius (dimension)
 
         drawerLayout.setViewScale(Gravity.START, 0.8f)
         drawerLayout.setViewElevation(Gravity.START, 20f)
